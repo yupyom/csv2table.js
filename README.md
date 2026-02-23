@@ -1,2 +1,5 @@
 # csv2table.js
 CSVファイルを読み込んで、ソートやフィルター制御が可能なレスポンシブHTMLテーブルを生成する軽量なJavaScriptライブラリです。
+
+## ドキュメント
+https://yupyom.github.io/csv2table.js/
