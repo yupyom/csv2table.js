@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#user-guide-api" class="md-skip">
+        <a href="#api" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -590,7 +590,7 @@
 
 
 
-<h1 id="user-guide-api">User Guide &amp; API</h1>
+<h1 id="api">利用方法とAPI</h1>
 <h2 id="_1">インスタンスの生成</h2>
 <p>ライブラリを利用するには、<code>Csv2Table</code> クラスのインスタンスを作成します。引数には設定オプションをまとめたオブジェクトを渡します。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
@@ -672,7 +672,7 @@
 <td style="text-align: left;"><code>format</code></td>
 <td style="text-align: left;"><code>string</code></td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;"><code>type</code> が <code>'date'</code> の場合にのみ有効です。日付の書式（例: <code>YYYY/MM/DD</code>）を指定することで、カスタムフォーマットでのパース処理が行われます。</td>
+<td style="text-align: left;"><code>type</code> が <code>'date'</code> の場合にのみ有効です。CSVに記載の日付の書式（例: <code>YYYY年M月D日</code>）を指定することで、カスタムフォーマットでのパース処理が行われます。</td>
 </tr>
 </tbody>
 </table>
@@ -751,15 +751,26 @@
 <h2 id="_5">高度な検索構文</h2>
 <p>検索入力欄では、ただの文字列マッチのほかに、以下の構文を使った複雑な絞り込みが可能です。</p>
 <ul>
-<li><strong>列指定検索</strong>: <code>列名:キーワード</code> </li>
-<li>例: <code>年齢:17</code> （「年齢」列に17が含まれる行）</li>
-<li><strong>AND 検索</strong>: <code>キーワード1 AND キーワード2</code> </li>
-<li>※スペース区切りの場合も暗黙的にANDになります。</li>
+<li><strong>列指定検索</strong>: <code>列名:キーワード</code> <ul>
+<li>例: <code>Age:17</code> （「Age」列に「17」が含まれる行）</li>
+<li>例: <code>名前:田中</code> （「名前」列に「田中」が含まれる行）</li>
+</ul>
+</li>
+<li><strong>AND 検索</strong>: <code>キーワード1 AND キーワード2</code> <ul>
+<li>スペース区切りの場合も暗黙的にANDになります。</li>
+</ul>
+</li>
 <li><strong>OR 検索</strong>: <code>キーワード1 OR キーワード2</code></li>
-<li><strong>グループ化</strong>: <code>( 条件1 OR 条件2 ) AND 条件3</code></li>
-<li><strong>完全・前方・後方一致</strong>: <code>^</code> や <code>$</code> を使用。</li>
+<li><strong>括弧によるグループ化</strong>: <code>( 条件1 OR 条件2 ) AND 条件3</code></li>
+<li><strong>完全・前方・後方一致</strong>: <code>^</code> や <code>$</code> を使用。<ul>
 <li><code>^2月$</code> ... 「2月」という文字列に完全一致（「12月」は除外）。</li>
 <li><code>^http</code> ... 「http」から始まる文字列に前方一致。</li>
+</ul>
+</li>
+<li><strong>大小絞り込み</strong>: <code>列名:(&lt;|&lt;=|&gt;=|&gt;)値</code>（number型の列のみ）<ul>
+<li>例: <code>Age:&gt;15 AND Age:&lt;17</code> （15 &lt; Age &lt; 17の条件を満たす行)</li>
+</ul>
+</li>
 </ul>
 <hr />
 <h2 id="css">カスタム CSS クラス</h2>
