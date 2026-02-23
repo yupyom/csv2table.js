@@ -532,7 +532,7 @@
 // Example 1: Responsive
 new Csv2Table({
     containerId: 'table1',
-    csvUrl: '/files/sample1.csv',
+    csvUrl: '../files/sample1.csv',
     responsive: true, // Default
     i18n: {
         searchPlaceholder: '検索...',
@@ -646,7 +646,7 @@ new Csv2Table({
 // Example 2: Horizontal Scroll
 new Csv2Table({
     containerId: 'table2',
-    csvUrl: '/files/sample2.csv',
+    csvUrl: '../files/sample2.csv',
     responsive: false, // Force horizontal scroll instead of responsive stacking
     columns: [
         { type: 'number' },  // Rank
@@ -708,7 +708,7 @@ new Csv2Table({
 // Example 1: Responsive
 new Csv2Table({
     containerId: 'table3',
-    csvUrl: '/files/sample3.csv',
+    csvUrl: '../files/sample3.csv',
     responsive: true, // Default
     initialSearch: 'Age:17', // 初期状態で「Ageが17」のもので絞り込み
     hiddenColumns: ['URL'], // 列名「URL」を非表示
