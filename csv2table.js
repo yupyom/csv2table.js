@@ -106,10 +106,10 @@ class Csv2Table {
     }
 
     parseDateString(dateStr, format) {
-        if (!dateStr) return 0;
+        if (!dateStr || dateStr.trim() === '-' || dateStr.trim() === '') return NaN;
         if (!format) {
             const d = new Date(dateStr).getTime();
-            return isNaN(d) ? 0 : d;
+            return isNaN(d) ? NaN : d;
         }
 
         const escapedFormat = format.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -164,7 +164,7 @@ class Csv2Table {
         }
 
         const fallback = new Date(dateStr).getTime();
-        return isNaN(fallback) ? 0 : fallback;
+        return isNaN(fallback) ? NaN : fallback;
     }
 
     parseSearchQuery(query) {
@@ -196,11 +196,18 @@ class Csv2Table {
                 continue;
             }
 
-            let isColMatch = query.slice(i).match(/^([^:()\s]+):/);
+            let isColMatch = query.slice(i).match(/^([^:()<>=!\s]+):/);
             let column = null;
             if (isColMatch) {
                 column = isColMatch[1];
                 i += isColMatch[0].length;
+            }
+
+            let operatorMatch = query.slice(i).match(/^(>=|<=|>|<)/);
+            let operator = null;
+            if (operatorMatch) {
+                operator = operatorMatch[1];
+                i += operatorMatch[0].length;
             }
 
             let value = "";
@@ -218,7 +225,11 @@ class Csv2Table {
                 }
             }
             if (value || column) {
-                tokens.push({ type: 'TERM', column, value: value.toLowerCase() });
+                if (operator) {
+                    tokens.push({ type: 'INEQUALITY', column, operator, value: value.toLowerCase() });
+                } else {
+                    tokens.push({ type: 'TERM', column, value: value.toLowerCase() });
+                }
             }
         }
 
@@ -234,7 +245,7 @@ class Csv2Table {
                     pos++;
                 }
                 return node;
-            } else if (token.type === 'TERM') {
+            } else if (token.type === 'TERM' || token.type === 'INEQUALITY') {
                 pos++;
                 return token;
             }
@@ -244,7 +255,7 @@ class Csv2Table {
 
         function parseAnd() {
             let node = parseTerm();
-            while (pos < tokens.length && (tokens[pos].type === 'AND' || tokens[pos].type === 'TERM' || tokens[pos].type === 'LPAREN')) {
+            while (pos < tokens.length && (tokens[pos].type === 'AND' || tokens[pos].type === 'TERM' || tokens[pos].type === 'INEQUALITY' || tokens[pos].type === 'LPAREN')) {
                 if (tokens[pos].type === 'AND') {
                     pos++;
                 }
@@ -283,6 +294,49 @@ class Csv2Table {
         if (ast.type === 'AND') {
             return this.evaluateSearchAST(ast.left, row) && this.evaluateSearchAST(ast.right, row);
         }
+        if (ast.type === 'INEQUALITY') {
+            let targetColIndex = -1;
+            if (ast.column) {
+                targetColIndex = this.headers.findIndex(h => h.toLowerCase() === ast.column.toLowerCase());
+            }
+
+            const searchValNum = parseFloat(ast.value);
+            const isSearchDate = !isNaN(Date.parse(ast.value));
+            const searchValDate = isSearchDate ? new Date(ast.value).getTime() : NaN;
+
+            const evaluateCell = (cellValStr) => {
+                let cellNum = parseFloat(cellValStr.replace(/[^\d.-]/g, ''));
+                let cellDate = isNaN(new Date(cellValStr).getTime()) ? NaN : new Date(cellValStr).getTime();
+
+                let sVal, cVal;
+
+                if (!isNaN(cellNum) && !isNaN(searchValNum)) {
+                    sVal = searchValNum;
+                    cVal = cellNum;
+                } else if (!isNaN(cellDate) && !isNaN(searchValDate)) {
+                    sVal = searchValDate;
+                    cVal = cellDate;
+                } else {
+                    return false; // Can't compare mathematically
+                }
+
+                if (ast.operator === '>=') return cVal >= sVal;
+                if (ast.operator === '<=') return cVal <= sVal;
+                if (ast.operator === '>') return cVal > sVal;
+                if (ast.operator === '<') return cVal < sVal;
+                return false;
+            };
+
+            if (targetColIndex !== -1) {
+                return evaluateCell(String(row[targetColIndex] || ''));
+            } else {
+                return row.some((cell, i) => {
+                    if (!this.visibleColumns.has(i)) return false;
+                    return evaluateCell(String(cell || ''));
+                });
+            }
+        }
+
         if (ast.type === 'TERM') {
             let targetColIndex = -1;
             if (ast.column) {
@@ -424,7 +478,7 @@ class Csv2Table {
 
             const colConfig = this.columns[i] || {};
             const type = colConfig.type || 'string';
-            const isSortable = type !== 'image' && type !== 'url';
+            const isSortable = type !== 'image';
 
             if (isSortable) {
                 const headerText = document.createElement('span');
@@ -488,7 +542,19 @@ class Csv2Table {
                     const format = colConfig.format;
                     valA = this.parseDateString(valA, format);
                     valB = this.parseDateString(valB, format);
-                    comp = valA - valB;
+
+                    const isNaNA = isNaN(valA);
+                    const isNaNB = isNaN(valB);
+
+                    if (isNaNA && isNaNB) {
+                        comp = 0;
+                    } else if (isNaNA) {
+                        return 1;
+                    } else if (isNaNB) {
+                        return -1;
+                    } else {
+                        comp = valA - valB;
+                    }
                 } else {
                     comp = String(valA).localeCompare(String(valB));
                 }
