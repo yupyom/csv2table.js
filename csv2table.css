@@ -1,0 +1,206 @@
+/* csv2table.css */
+.csv2table-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.csv2table-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.csv2table-search {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+    max-width: 300px;
+    font-size: 1rem;
+}
+
+.csv2table-col-filter-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.csv2table-col-filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.csv2table-col-filter-btn:hover {
+    background: #f0f0f0;
+}
+
+.csv2table-col-filter-dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+    min-width: 180px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.csv2table-col-filter-dropdown label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.95rem;
+}
+
+.csv2table-col-filter-dropdown input {
+    margin-right: 8px;
+}
+
+.csv2table-wrapper.scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.csv2table-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.csv2table-th, .csv2table-td {
+    border: 1px solid #e0e0e0;
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+.csv2table-th {
+    background-color: #f8f9fa;
+    position: relative;
+    user-select: none;
+    font-weight: 600;
+}
+
+.csv2table-th.sortable:hover {
+    background-color: #e9ecef;
+}
+
+.csv2table-th.sort-asc, .csv2table-th.sort-desc {
+    background-color: #e2e6ea;
+}
+
+.csv2table-th.sortable .csv2table-header-text::after {
+    content: ' \2195'; /* Up/down arrow */
+    font-size: 0.8em;
+    opacity: 0.3;
+    padding-left: 5px;
+}
+
+.csv2table-th.sort-asc .csv2table-header-text::after {
+    content: ' \25B2'; /* up arrow */
+    font-size: 0.8em;
+    padding-left: 5px;
+    color: #495057;
+}
+
+.csv2table-th.sort-desc .csv2table-header-text::after {
+    content: ' \25BC'; /* down arrow */
+    font-size: 0.8em;
+    padding-left: 5px;
+    color: #495057;
+}
+
+.csv2table-tbody-tr {
+    transition: background-color 0.15s;
+}
+
+.csv2table-tbody-tr:nth-child(even) {
+    background-color: #fdfdfd;
+}
+
+.csv2table-tbody-tr:hover {
+    background-color: #f1f5f9;
+}
+
+.csv2table-img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+}
+
+.csv2table-td a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.csv2table-td a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+    .csv2table-wrapper.responsive .csv2table-table {
+        border: 0;
+    }
+
+    .csv2table-wrapper.responsive .csv2table-table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .csv2table-wrapper.responsive .csv2table-tbody-tr {
+        border: 1px solid #ddd;
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        border-radius: 4px;
+    }
+
+    .csv2table-wrapper.responsive .csv2table-td {
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        padding: 0.75rem 1rem;
+    }
+
+    .csv2table-wrapper.responsive .csv2table-td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85em;
+        color: #666;
+        margin-right: 15px;
+        text-align: left;
+    }
+
+    .csv2table-wrapper.responsive .csv2table-td:last-child {
+        border-bottom: 0;
+    }
+    
+    .csv2table-wrapper.responsive .csv2table-img {
+        max-width: 100px;
+    }
+}
