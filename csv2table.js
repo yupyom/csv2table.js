@@ -117,6 +117,7 @@ class Csv2Table {
         let patternStr = escapedFormat
             .replace('YYYY', '(?<YYYY>\\d{4})')
             .replace('YY', '(?<YY>\\d{2})')
+            .replace('Mmm', '(?<Mmm>[^\\d\\s\\/\\-.,]+)')
             .replace('MM', '(?<MM>\\d{2})')
             .replace('M', '(?<M>\\d{1,2})')
             .replace('DD', '(?<DD>\\d{2})')
@@ -126,7 +127,9 @@ class Csv2Table {
             .replace('mm', '(?<mm>\\d{2})')
             .replace('m', '(?<m>\\d{1,2})')
             .replace('ss', '(?<ss>\\d{2})')
-            .replace('s', '(?<s>\\d{1,2})');
+            .replace('s', '(?<s>\\d{1,2})')
+            .replace('Www', '(?<Www>[^\\d\\s\\/\\-.,]+)')
+            .replace('Z', '(?<Z>Z|[+-]\\d{2}:?\\d{2}|[+-]\\d{4})');
 
         try {
             const regex = new RegExp(`^${patternStr}$`);
@@ -144,6 +147,12 @@ class Csv2Table {
 
                 if (g.MM) month = parseInt(g.MM, 10) - 1;
                 else if (g.M) month = parseInt(g.M, 10) - 1;
+                else if (g.Mmm) {
+                    const mName = g.Mmm.toLowerCase();
+                    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+                    const mIdx = months.findIndex(m => mName.startsWith(m));
+                    if (mIdx !== -1) month = mIdx;
+                }
 
                 if (g.DD) day = parseInt(g.DD, 10);
                 else if (g.D) day = parseInt(g.D, 10);
@@ -156,6 +165,17 @@ class Csv2Table {
 
                 if (g.ss) seconds = parseInt(g.ss, 10);
                 else if (g.s) seconds = parseInt(g.s, 10);
+
+                if (g.Z) {
+                    const pad = n => String(n).padStart(2, '0');
+                    const yyyy = String(year).padStart(4, '0');
+                    let z = g.Z;
+                    if (z === 'Z' || z === 'z') z = 'Z';
+                    else if (z.length === 5) z = z.substring(0, 3) + ':' + z.substring(3); // +0900 -> +09:00
+                    const iso = `${yyyy}-${pad(month + 1)}-${pad(day)}T${pad(hours)}:${pad(minutes)}:${pad(seconds)}${z}`;
+                    const timestamp = Date.parse(iso);
+                    if (!isNaN(timestamp)) return timestamp;
+                }
 
                 return new Date(year, month, day, hours, minutes, seconds).getTime();
             }
@@ -301,23 +321,41 @@ class Csv2Table {
             }
 
             const searchValNum = parseFloat(ast.value);
-            const isSearchDate = !isNaN(Date.parse(ast.value));
-            const searchValDate = isSearchDate ? new Date(ast.value).getTime() : NaN;
 
-            const evaluateCell = (cellValStr) => {
-                let cellNum = parseFloat(cellValStr.replace(/[^\d.-]/g, ''));
-                let cellDate = isNaN(new Date(cellValStr).getTime()) ? NaN : new Date(cellValStr).getTime();
+            let searchValDate = NaN;
+            if (/^\d{4}$/.test(ast.value)) {
+                searchValDate = new Date(parseInt(ast.value, 10), 0, 1).getTime();
+            } else {
+                searchValDate = !isNaN(Date.parse(ast.value)) ? new Date(ast.value).getTime() : NaN;
+            }
+
+            const evaluateCell = (cellValStr, colIndex) => {
+                const colConfig = this.columns[colIndex] || {};
+                const type = colConfig.type || 'string';
 
                 let sVal, cVal;
 
-                if (!isNaN(cellNum) && !isNaN(searchValNum)) {
-                    sVal = searchValNum;
-                    cVal = cellNum;
-                } else if (!isNaN(cellDate) && !isNaN(searchValDate)) {
-                    sVal = searchValDate;
-                    cVal = cellDate;
+                if (type === 'date') {
+                    const cellDate = this.parseDateString(cellValStr, colConfig.format);
+                    if (!isNaN(cellDate) && !isNaN(searchValDate)) {
+                        sVal = searchValDate;
+                        cVal = cellDate;
+                    } else {
+                        return false;
+                    }
                 } else {
-                    return false; // Can't compare mathematically
+                    let cellNum = parseFloat(cellValStr.replace(/[^\d.-]/g, ''));
+                    let cellDate = isNaN(new Date(cellValStr).getTime()) ? NaN : new Date(cellValStr).getTime();
+
+                    if (!isNaN(cellNum) && !isNaN(searchValNum)) {
+                        sVal = searchValNum;
+                        cVal = cellNum;
+                    } else if (!isNaN(cellDate) && !isNaN(searchValDate)) {
+                        sVal = searchValDate;
+                        cVal = cellDate;
+                    } else {
+                        return false; // Can't compare mathematically
+                    }
                 }
 
                 if (ast.operator === '>=') return cVal >= sVal;
@@ -328,11 +366,11 @@ class Csv2Table {
             };
 
             if (targetColIndex !== -1) {
-                return evaluateCell(String(row[targetColIndex] || ''));
+                return evaluateCell(String(row[targetColIndex] || ''), targetColIndex);
             } else {
                 return row.some((cell, i) => {
                     if (!this.visibleColumns.has(i)) return false;
-                    return evaluateCell(String(cell || ''));
+                    return evaluateCell(String(cell || ''), i);
                 });
             }
         }
@@ -376,12 +414,22 @@ class Csv2Table {
             const regex = new RegExp(finalRegexStr, 'i'); // case insensitive
 
             if (targetColIndex !== -1) {
-                const cellVal = String(row[targetColIndex] || '').toLowerCase();
+                const colConfig = this.columns[targetColIndex] || {};
+                let cellVal = String(row[targetColIndex] || '');
+                if (colConfig.type === 'date' && typeof colConfig.toString === 'string') {
+                    cellVal = this.formatDate(cellVal, colConfig.format, colConfig.toString, colConfig.locale);
+                }
+                cellVal = cellVal.toLowerCase();
                 return regex.test(cellVal);
             } else {
                 return row.some((cell, i) => {
                     if (!this.visibleColumns.has(i)) return false;
-                    const cellVal = String(cell || '').toLowerCase();
+                    const colConfig = this.columns[i] || {};
+                    let cellVal = String(cell || '');
+                    if (colConfig.type === 'date' && typeof colConfig.toString === 'string') {
+                        cellVal = this.formatDate(cellVal, colConfig.format, colConfig.toString, colConfig.locale);
+                    }
+                    cellVal = cellVal.toLowerCase();
                     return regex.test(cellVal);
                 });
             }
@@ -458,6 +506,105 @@ class Csv2Table {
         this.tableWrapper = document.createElement('div');
         this.tableWrapper.className = `csv2table-wrapper ${this.responsive ? 'responsive' : 'scroll'}`;
         container.appendChild(this.tableWrapper);
+    }
+
+    formatNumber(valueStr, formatStr, locale) {
+        if (!valueStr && valueStr !== 0 && valueStr !== '0') return '';
+        let num = parseFloat(String(valueStr).replace(/[^\d.-]/g, ''));
+        if (isNaN(num)) return valueStr;
+
+        if (typeof formatStr !== 'string') return String(num);
+
+        const match = formatStr.trim().match(/^([a-zA-Z])(\d*)$/);
+        if (!match) return String(num);
+
+        const type = match[1].toUpperCase();
+        const digitsStr = match[2];
+        const digits = digitsStr ? parseInt(digitsStr, 10) : undefined;
+
+        try {
+            switch (type) {
+                case 'D': {
+                    const intNum = Math.trunc(num);
+                    const isNegative = intNum < 0;
+                    let absStr = Math.abs(intNum).toString();
+                    if (digits !== undefined) {
+                        absStr = absStr.padStart(digits, '0');
+                    }
+                    return (isNegative ? '-' : '') + absStr;
+                }
+                case 'G': {
+                    if (digits !== undefined && digits > 0) {
+                        return parseFloat(num.toPrecision(digits)).toString();
+                    }
+                    return num.toString();
+                }
+                case 'N': {
+                    const fractionDigits = digits !== undefined ? digits : 2;
+                    return new Intl.NumberFormat(locale || undefined, {
+                        minimumFractionDigits: fractionDigits,
+                        maximumFractionDigits: fractionDigits
+                    }).format(num);
+                }
+                case 'C': {
+                    const loc = locale || (typeof navigator !== 'undefined' && navigator.language ? navigator.language : 'ja-JP');
+                    const currency = loc.startsWith('ja') ? 'JPY' : 'USD';
+                    const options = { style: 'currency', currency: currency };
+                    if (digits !== undefined) {
+                        options.minimumFractionDigits = digits;
+                        options.maximumFractionDigits = digits;
+                    }
+                    return new Intl.NumberFormat(locale || undefined, options).format(num);
+                }
+                case 'P': {
+                    const fractionDigits = digits !== undefined ? digits : 2;
+                    return new Intl.NumberFormat(locale || undefined, {
+                        style: 'percent',
+                        minimumFractionDigits: fractionDigits,
+                        maximumFractionDigits: fractionDigits
+                    }).format(num);
+                }
+            }
+        } catch (e) {
+            console.error("Format error", e);
+        }
+        return String(num);
+    }
+
+    formatDate(valueStr, inputFormatStr, outputFormatStr, locale) {
+        if (!valueStr) return '';
+        const timestamp = this.parseDateString(valueStr, inputFormatStr);
+        if (isNaN(timestamp)) return valueStr;
+
+        if (typeof outputFormatStr !== 'string') return valueStr;
+
+        const d = new Date(timestamp);
+        const loc = locale || undefined;
+
+        const map = {
+            YYYY: d.getFullYear(),
+            YY: String(d.getFullYear()).slice(-2),
+            MM: String(d.getMonth() + 1).padStart(2, '0'),
+            M: d.getMonth() + 1,
+            DD: String(d.getDate()).padStart(2, '0'),
+            D: d.getDate(),
+            HH: String(d.getHours()).padStart(2, '0'),
+            H: d.getHours(),
+            mm: String(d.getMinutes()).padStart(2, '0'),
+            m: d.getMinutes(),
+            ss: String(d.getSeconds()).padStart(2, '0'),
+            s: d.getSeconds(),
+            Www: new Intl.DateTimeFormat(loc, { weekday: 'short' }).format(d),
+            Mmm: new Intl.DateTimeFormat(loc, { month: 'short' }).format(d),
+            Z: (() => {
+                const offset = -d.getTimezoneOffset();
+                const sign = offset >= 0 ? '+' : '-';
+                const pad = n => String(n).padStart(2, '0');
+                return sign + pad(Math.floor(Math.abs(offset) / 60)) + ':' + pad(Math.abs(offset) % 60);
+            })()
+        };
+
+        return outputFormatStr.replace(/YYYY|YY|Mmm|MM|M|DD|D|HH|H|mm|m|ss|s|Www|Z/g, match => map[match]);
     }
 
     renderTable() {
@@ -605,7 +752,20 @@ class Csv2Table {
                             td.appendChild(img);
                         }
                     } else {
-                        td.textContent = cellValue;
+                        if (type === 'number') {
+                            let text = cellValue;
+                            if (typeof colConfig.toString === 'string') {
+                                text = this.formatNumber(cellValue, colConfig.toString, colConfig.locale);
+                            }
+                            if (typeof colConfig.unit === 'string' && String(text).trim() !== '') {
+                                text = String(text) + colConfig.unit;
+                            }
+                            td.textContent = text;
+                        } else if (type === 'date' && typeof colConfig.toString === 'string') {
+                            td.textContent = this.formatDate(cellValue, colConfig.format, colConfig.toString, colConfig.locale);
+                        } else {
+                            td.textContent = cellValue;
+                        }
                     }
 
                     td.setAttribute('data-label', h);

@@ -350,10 +350,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-uii18n" class="md-nav__link">
+  <a href="#1-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 1: UIの日本語化（i18n オプション）
+        例 1: レスポンシブ、UIの日本語化、出力オプション
       
     </span>
   </a>
@@ -364,7 +364,7 @@
   <a href="#2-css" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 2: 横スクロール ＆ カスタムCSS
+        例 2: 横スクロール、CSSによる細かな装飾
       
     </span>
   </a>
@@ -375,7 +375,18 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 3: 初期検索・列の非表示オプション、カスタム日付、コールバック
+        例 3: 列の非表示、カスタム入力日付、コールバック
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4: 検索絞り込みの初期状態設定
       
     </span>
   </a>
@@ -417,10 +428,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-uii18n" class="md-nav__link">
+  <a href="#1-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 1: UIの日本語化（i18n オプション）
+        例 1: レスポンシブ、UIの日本語化、出力オプション
       
     </span>
   </a>
@@ -431,7 +442,7 @@
   <a href="#2-css" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 2: 横スクロール ＆ カスタムCSS
+        例 2: 横スクロール、CSSによる細かな装飾
       
     </span>
   </a>
@@ -442,7 +453,18 @@
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        例 3: 初期検索・列の非表示オプション、カスタム日付、コールバック
+        例 3: 列の非表示、カスタム入力日付、コールバック
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例 4: 検索絞り込みの初期状態設定
       
     </span>
   </a>
@@ -469,40 +491,64 @@
 <h1 id="_1">サンプル</h1>
 <p>このページでは、<code>Csv2Table.js</code> の機能を利用した実践的なサンプルコードを紹介します。</p>
 <hr />
-<h2 id="1-uii18n">例 1: UIの日本語化（i18n オプション）</h2>
-<p>この例では、基本的な CSV データを読み込み、カード型のレスポンシブなデザイン (デフォルト動作) を適用しています。
-また、<code>i18n</code> オプションを使用してUIを日本語に設定しています。</p>
+<h2 id="1-ui">例 1: レスポンシブ、UIの日本語化、出力オプション</h2>
+<p>CSV データを読み込みの基本サンプルです。PCでは表、モバイルではカード型のレスポンシブなデザイン (デフォルト動作) を適用しています。</p>
+<p>テーブルの装飾は最低限のものになっていますので、基本的にCSSで調整します。</p>
+<p>また、この例では、<code>i18n</code> オプションを使用してUIを日本語に設定しているほか、<code>date</code>型のオプションである<code>toString</code>で出力フォーマット文字列を変更しています。</p>
+<p><strong>CSS:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="kt">rem</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">768px</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nt">width</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="k">vertical-align</span><span class="p">:</span><span class="w"> </span><span class="kc">middle</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-0</span><span class="o">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-1</span><span class="o">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-2</span><span class="o">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-3</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">nowrap</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="p">#</span><span class="nn">table1</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-4</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">        </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+</code></pre></div>
 <p><strong>JavaScript:</strong></p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table1&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample1.csv&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// デフォルト (画面幅が狭いとカード型になる)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">i18n</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nx">searchPlaceholder</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;検索...&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="nx">filterColumns</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;列の表示/非表示 ▼&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="nx">noData</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;データが見つかりません&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="nx">errorLoading</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CSVデータの読み込みに失敗しました。&#39;</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// 名前 </span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">// 生誕日 </span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// 享年</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// wiki</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// 肖像</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="p">]</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">});</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table1&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample1.csv&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// デフォルト (画面幅が狭いとカード型になる)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nx">i18n</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nx">searchPlaceholder</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;検索...&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nx">filterColumns</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;列の表示/非表示 ▼&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="nx">noData</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;データが見つかりません&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nx">errorLoading</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CSVデータの読み込みに失敗しました。&#39;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// 名前 </span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">toString</span><span class="o">:</span><span class="s1">&#39;YYYY年M月D日&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">// 生誕日 </span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">toString</span><span class="o">:</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">unit</span><span class="o">:</span><span class="s1">&#39;歳&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// 享年</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// wiki</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// 肖像</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">});</span>
 </code></pre></div>
 <strong>CSV:</strong></p>
-<div class="highlight"><span class="filename">sample1.csv</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>名前,生誕日,享年,wiki,肖像
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&quot;織田信長&quot;,1534-07-03,49,https://ja.wikipedia.org/wiki/織田信長,nob.jpg
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>&quot;豊臣秀吉&quot;,1537-03-27,62,https://ja.wikipedia.org/wiki/豊臣秀吉,hide.jpg
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>&quot;徳川家康&quot;,1543-02-10,75,https://ja.wikipedia.org/wiki/徳川家康,yas.jpg
+<p><div class="highlight"><span class="filename">sample1.csv</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>名前,生誕日,享年,wiki,肖像
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&quot;織田信長&quot;,1534-07-03,49,https://ja.wikipedia.org/wiki/織田信長,nob.jpg
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>&quot;豊臣秀吉&quot;,1537-03-27,62,https://ja.wikipedia.org/wiki/豊臣秀吉,hide.jpg
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>&quot;徳川家康&quot;,1543-02-10,75,https://ja.wikipedia.org/wiki/徳川家康,yas.jpg
 </code></pre></div>
+<strong>出力結果:</strong></p>
 <div id="table1"></div>
 <script src="https://cdn.jsdelivr.net/npm/holderjs@2.9.9/holder.min.js"></script>
 <!-- 1) Read the Library -->
-<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yupyom/csv2table.js@v1.0.1/csv2table.css"></p>
-<script src="https://cdn.jsdelivr.net/gh/yupyom/csv2table.js@v1.0.1/csv2table.js" type="text/javaScript" charset="utf-8"></script>
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yupyom/csv2table.js@v1.0.2/csv2table.css"></p>
+<!--script src="/csv2table.js" type="text/javaScript" charset="utf-8"></script-->
+<script src="https://cdn.jsdelivr.net/gh/yupyom/csv2table.js@v1.0.2/csv2table.js" type="text/javaScript" charset="utf-8"></script>
 
 <!-- 2) Initialize tables -->
 <style>
@@ -522,6 +568,9 @@
     #table1 .csv2table-col-3 {
         white-space: nowrap;
     }
+    #table1 td.csv2table-col-2 {
+        text-align: right;
+    }
 
     #table1 .csv2table-col-4 {
         width: 90px;
@@ -529,7 +578,7 @@
 }
 </style>
 <script>
-// Example 1: Responsive
+// Example 1: Responsive, i18n, toString, unit
 new Csv2Table({
     containerId: 'table1',
     csvUrl: '../files/sample1.csv',
@@ -542,8 +591,8 @@ new Csv2Table({
     },
     columns: [
         { type: 'string' },  // 名前 
-        { type: 'date' },    // 生誕日 
-        { type: 'number' },  // 享年
+        { type: 'date', toString:'YYYY年M月D日' },    // 生誕日 
+        { type: 'number', toString:'D', unit:'歳' },  // 享年
         { type: 'url' },     // wiki
         { type: 'image' }    // 肖像
     ]
@@ -552,58 +601,67 @@ new Csv2Table({
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>彼らが生まれ年となった時代の西暦にはユリウス歴が使われていたが、ISO 8601に従うJavaScriptの日付処理ではユリウス歴は反映されず、仮想上のグレゴリオ暦換算の西暦日付となるため、ここでもその年月日で統一した。また、歴史人物の生誕日には諸説があり、そのうちの有力とされているものとした。</p>
+<p>彼らが生まれ年となった時代の西暦にはユリウス歴が使われていたが、JavaScriptの日付処理はISO 8601に準拠しており、常に仮想上のグレゴリオ暦換算の西暦日付となるため、ここでもその年月日で統一した。また、歴史人物の生誕日には諸説があり、そのうちの有力とされているものとした。</p>
 </div>
 <hr />
-<h2 id="2-css">例 2: 横スクロール ＆ カスタムCSS</h2>
-<p>レスポンシブ処理を <code>false</code> に設定し、テーブルが画面幅を超えた場合は横スクロールバーを表示させます。
-また、自動付与される CSS クラスを用いて、特定の列を右寄せ・赤色などに装飾する例です。</p>
+<h2 id="2-css">例 2: 横スクロール、CSSによる細かな装飾</h2>
+<p>レスポンシブ処理を <code>false</code> に設定し、テーブルが画面幅を超えた場合は横スクロールバーを表示させます。</p>
+<p>また、自動付与される CSS クラスを用いて、特定の列を右寄せ・赤色などに細かく装飾したサンプルです。各行列に割り当てられたclass名のインデックスは、0はじまりとなっています。</p>
 <p><strong>CSS:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c">/* 折り返し強制禁止 */</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">#</span><span class="nn">table2</span><span class="w"> </span><span class="nt">th</span><span class="o">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">#</span><span class="nn">table2</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">nowrap</span><span class="p">;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c">/* ヘッダー全体を青に */</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-thead-tr</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#0056b3</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#004494</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-thead-tr</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-header-text</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#fff</span><span class="p">;</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">;</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="c">/* Populationの列（Index 2）を右揃え、赤太文字に */</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">right</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#d9534f</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c">/* 折り返し強制禁止 */</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">#</span><span class="nn">table2</span><span class="w"> </span><span class="nt">th</span><span class="o">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">#</span><span class="nn">table2</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">nowrap</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c">/* ヘッダー全体を青に */</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-thead-tr</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#0056b3</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="k">border-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#004494</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-thead-tr</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-header-text</span><span class="p">::</span><span class="nd">after</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#fff</span><span class="p">;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">}</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c">/* Populationの列（Index 2）を右揃え、赤太文字に */</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-col-2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">right</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#d9534f</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">}</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="c">/* 最初のデータ行をハイライト */</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-row-0</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#fff3cd</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="p">}</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="p">.</span><span class="nc">csv2table-table2</span><span class="w"> </span><span class="p">.</span><span class="nc">csv2table-row-0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="p">}</span>
 </code></pre></div>
 <p><strong>JavaScript:</strong></p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table2&#39;</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample2.csv&#39;</span><span class="p">,</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// レスポンシブ横積みを無効にし、横スクロールを強制</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Rank</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Country</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Population</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Capital</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// Info</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Flag</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="p">]</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">});</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table2&#39;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample2.csv&#39;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// レスポンシブ時の縦積みを無効にし、横スクロールを強制</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Rank</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Country</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">toString</span><span class="o">:</span><span class="s2">&quot;N0&quot;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Population</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Capital</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// Info</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Flag</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">});</span>
 </code></pre></div>
-<strong>CSV:</strong></p>
-<div class="highlight"><span class="filename">sample2.csv</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Rank,Country,Population,Capital,Info,Flag
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>1,China,1409517397,Beijing,https://en.wikipedia.org/wiki/China,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/100px-Flag_of_the_People%27s_Republic_of_China.svg.png
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>2,India,1339180127,New Delhi,https://en.wikipedia.org/wiki/India,https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/100px-Flag_of_India.svg.png
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>3,United States,324459463,Washington D.C.,https://en.wikipedia.org/wiki/United_States,https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png
+<p><strong>CSV:</strong></p>
+<div class="highlight"><span class="filename">sample2.csv</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Rank,Country,Population,Capital,Info,Flag
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>1,China,1409517397,Beijing,https://en.wikipedia.org/wiki/China,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/100px-Flag_of_the_People%27s_Republic_of_China.svg.png
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>2,India,1339180127,New Delhi,https://en.wikipedia.org/wiki/India,https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/100px-Flag_of_India.svg.png
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>3,United States,324459463,Washington D.C.,https://en.wikipedia.org/wiki/United_States,https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png
 </code></pre></div>
+<p><strong>出力結果:</strong></p>
 <div id="table2"></div>
 <!-- 2) Initialize tables -->
 <style>
@@ -638,8 +696,11 @@ new Csv2Table({
 }
 
 /* Highlight a specific row based on original index */
-    .csv2table-table2 .csv2table-row-1 {
+.csv2table-table2 .csv2table-row-0 {
     background-color: #fff3cd !important;
+}
+.csv2table-table2 .csv2table-row-0 * {
+    font-weight: bold;
 }
 </style>
 <script>
@@ -647,11 +708,11 @@ new Csv2Table({
 new Csv2Table({
     containerId: 'table2',
     csvUrl: '../files/sample2.csv',
-    responsive: false, // Force horizontal scroll instead of responsive stacking
+    responsive: false, // レスポンシブ時の縦積みを無効にし、横スクロールを強制
     columns: [
         { type: 'number' },  // Rank
         { type: 'string' },  // Country
-        { type: 'number' },  // Population
+        { type: 'number', toString:'N0' },  // Population
         { type: 'string' },  // Capital
         { type: 'url' },     // Info
         { type: 'image' }    // Flag
@@ -660,32 +721,43 @@ new Csv2Table({
 </script>
 
 <hr />
-<h2 id="3">例 3: 初期検索・列の非表示オプション、カスタム日付、コールバック</h2>
-<p><code>initialSearch</code> や <code>hiddenColumns</code> オプションを利用して、表が表示された瞬間にあらかじめフィルタリングがかかった状態を作るサンプルです。</p>
-<p>また、カスタムの日付フォーマットを指定して、CSV上に日本語で記述された <code>M月D日</code> を日付フォーマットとして読み込み、日付でソート可能にしています。</p>
+<h2 id="3">例 3: 列の非表示、カスタム入力日付、コールバック</h2>
+<p><code>hiddenColumns</code> オプションを利用して、デフォルトで表示しない列を指定するオプションの使用例です。</p>
+<p>また、カスタムの入力日付フォーマットオプション <code>format</code> を指定して、CSV上に日本語で記述された <code>M月D日</code> の形式を認識して日付型として読み込めるようにしています。</p>
 <p><code>onRenderComplete</code> のコールバックにて、外部スクリプトとの柔軟な連携が可能です。この例では、CSVのアイコン列内に <a href="https://github.com/imsky/holder">holder.js</a> のプレースホルダーを記述しておき、レンダリングによって表のDOMが動的に生成されたあとで、<code>Holder.run</code> を呼び出してアイコンを生成させています。DOMが構築されていることが前提のJavaScriptライブラリを使う場合に便利です。</p>
-<p><strong>JavaScript:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table3&#39;</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample3.csv&#39;</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// Default</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nx">initialSearch</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Age:17&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 初期状態で「年齢列が17」のもので絞り込み</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nx">hiddenColumns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;URL&#39;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 列名「URL」を非表示</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Name</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">format</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;M月D日&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">// Birth Date (Custom Format) </span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Age</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// URL</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Dummy Icon (holder.js)</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p">],</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="nx">onRenderComplete</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">myImages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;#table3 .csv2table-img&#39;</span><span class="p">);</span>
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">        </span><span class="nx">Holder</span><span class="p">.</span><span class="nx">run</span><span class="p">({</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">            </span><span class="nx">images</span><span class="o">:</span><span class="w"> </span><span class="nx">myImages</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">        </span><span class="p">});</span>
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="p">});</span>
+<p><strong>HTML:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cm">&lt;!--事前に連携するライブラリを読みこませておく--&gt;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/holderjs@2.9.9/holder.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
+<p><strong>JavaScript:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table3&#39;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sample3.csv&#39;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// Default</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nx">hiddenColumns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;URL&#39;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 列名「URL」を非表示</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Name</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">format</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;M月D日&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">toString</span><span class="o">:</span><span class="s1">&#39;Mmm D&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">locale</span><span class="o">:</span><span class="s1">&#39;en-US&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">// Birth Date (カスタム読み込み、カスタム出力) </span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Age</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;url&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">     </span><span class="c1">// URL</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;image&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">    </span><span class="c1">// Dummy Icon (holder.js)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nx">onRenderComplete</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">myImages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;#table3 .csv2table-img&#39;</span><span class="p">);</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="nx">Holder</span><span class="p">.</span><span class="nx">run</span><span class="p">({</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">            </span><span class="nx">images</span><span class="o">:</span><span class="w"> </span><span class="nx">myImages</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="p">});</span>
+</code></pre></div>
+<p><strong>CSV:</strong></p>
+<div class="highlight"><span class="filename">sample3.csv</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Name,Birth Date,Age,URL,Icon
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Alice Smith,3月15日,17,https://example.com/alice,holder.js/50x50?theme=sky
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Bob Jones,-,16,https://example.com/bob,holder.js/50x50?theme=vine
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Charlie Brown,12月8日,17,https://example.com/charlie,holder.js/50x50?theme=gray
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Dave Wilson,1月1日,15,https://example.com/dave,holder.js/50x50?theme=industrial
+</code></pre></div>
+<p><strong>出力結果:</strong></p>
 <div id="table3"></div>
 <!-- 2) Initialize tables -->
 <style>
@@ -699,30 +771,152 @@ new Csv2Table({
     #table3 td {
         vertical-align: middle;
     }
+    #table3 td.csv2table-col-1 {
+        text-align: center;
+    }
+    #table3 td.csv2table-col-2 {
+        text-align: right;
+    }
     #table3 .csv2table-col-4 {
         width: 90px;
     }
 }
 </style>
 <script>
-// Example 1: Responsive
+// Example 3: initialSearch, hiddenColumns, custom date format, callback
 new Csv2Table({
     containerId: 'table3',
     csvUrl: '../files/sample3.csv',
     responsive: true, // Default
-    initialSearch: 'Age:17', // 初期状態で「Ageが17」のもので絞り込み
     hiddenColumns: ['URL'], // 列名「URL」を非表示
     columns: [
         { type: 'string' },  // Name
-        { type: 'date', format: 'M月D日' },    // Birth Date (Custom Format) 
+        { type: 'date', format: 'M月D日', toString:'Mmm D', locale:'en-US' },    // Birth Date (Custom Format) 
         { type: 'number' },  // Age
         { type: 'url' },     // URL
         { type: 'image' }    // Dummy Icon (holder.js)
     ],
     onRenderComplete: function (instance) {
-        var myImages = document.querySelectorAll('#table3 .csv2table-img');
+        const myImages = document.querySelectorAll('#table3 .csv2table-img');
         Holder.run({
             images: myImages
+        });
+    }
+});
+</script>
+
+<hr />
+<h2 id="4">例 4: 検索絞り込みの初期状態設定</h2>
+<p><code>initialSearch</code> オプションを利用して、表が表示された瞬間にあらかじめ絞り込み検索がかかった状態を作るサンプルです。<a href="../guide/#_5">高度な検索構文</a>もご参照ください。</p>
+<p>また、コールバックを活用して、複雑な日本語の価格表記を実現したサンプルとしました。</p>
+<p><strong>JavaScript:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// 億千万の変換は以下を参考に、その桁が0だった場合は飛ばし、</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1">// それ以外の場合はカンマ区切りを入れるように変更</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">// https://zenn.dev/terrierscript/articles/2021-02-21-java-script-number-format-compact</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kd">function</span><span class="w"> </span><span class="nx">fullJapaneseFormat</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Intl</span><span class="p">.</span><span class="nx">NumberFormat</span><span class="p">(</span><span class="s2">&quot;ja-JP&quot;</span><span class="p">,{</span><span class="w"> </span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nx">notation</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;compact&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nx">useGrouping</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nx">maximumFractionDigits</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="p">})</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">number</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">bigIntNum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">BigInt</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">num</span><span class="p">,</span><span class="nx">notation</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">formatter</span><span class="p">.</span><span class="nx">formatToParts</span><span class="p">(</span><span class="nx">bigIntNum</span><span class="p">)</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">numStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bigIntNum</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="nx">notation</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">){</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">numStr</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">        </span><span class="nx">numStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">numStr</span><span class="p">).</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s2">&quot;ja-JP&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">[...</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">numStr</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">dig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">num</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Number</span><span class="p">(</span><span class="nx">numStr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="nx">dig</span><span class="p">)).</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s2">&quot;ja-JP&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">numStr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">dig</span><span class="p">)</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span><span class="w"> </span><span class="p">[...</span><span class="nx">result</span><span class="p">,</span><span class="sb">`</span><span class="si">${</span><span class="nx">value</span><span class="si">}${</span><span class="nx">notation</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">])</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;円&#39;</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="p">}</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="ow">new</span><span class="w"> </span><span class="nx">Csv2Table</span><span class="p">({</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">    </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;table4&#39;</span><span class="p">,</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">    </span><span class="nx">csvUrl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;../files/sample4.csv&#39;</span><span class="p">,</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">    </span><span class="nx">initialSearch</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;available:&gt;=2023 AND available:&lt;2026&#39;</span><span class="p">,</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">    </span><span class="nx">responsive</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">    </span><span class="nx">columns</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// Product</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="w">  </span><span class="nx">toString</span><span class="o">:</span><span class="s1">&#39;YYYY/MM/DD&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">locale</span><span class="o">:</span><span class="s1">&#39;ja-JP&#39;</span><span class="w">  </span><span class="p">},</span><span class="w">  </span><span class="c1">// Available</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;number&#39;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// Price</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w">    </span><span class="nx">onRenderComplete</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">populationElements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;#table4 td.csv2table-col-2&#39;</span><span class="p">);</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">        </span><span class="nx">populationElements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">            </span><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fullJapaneseFormat</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="p">});</span>
+</code></pre></div>
+<p><strong>出力結果:</strong></p>
+<div id="table4"></div>
+<style>
+#table4 * {
+    font-size: 0.7rem;
+}
+#table4 td.csv2table-col-1 {
+    text-align: center;
+}
+#table4 td.csv2table-col-2 {
+    text-align: right;
+}
+</style>
+<script>
+// Example 4: initialSearch
+
+// 億千万の変換は以下を参考にその桁が0だった場合に飛ばす形をとった
+// https://zenn.dev/terrierscript/articles/2021-02-21-java-script-number-format-compact
+function fullJapaneseFormat(number) {
+  const formatter = new Intl.NumberFormat("ja-JP",{ 
+    notation: "compact",
+    useGrouping: false,
+    maximumFractionDigits: 0
+  })
+  const fmt = (number, result = []) => {
+    const bigIntNum = BigInt(number)
+    const [num,notation] = formatter.formatToParts(bigIntNum)
+    let numStr = bigIntNum.toString()
+    if(notation === undefined){
+      if(Number(numStr) == 0) {
+        return result.join("");
+      }else{
+        numStr = Number(numStr).toLocaleString("ja-JP");
+      }
+      return [...result, numStr].join("")
+    }
+    const dig = num.value.length
+    const value = Number(numStr.slice(0,dig)).toLocaleString("ja-JP");
+    const next = numStr.slice(dig)
+
+    return fmt(next, [...result,`${value}${notation.value}`])
+  }
+  return fmt(number) + '円'
+}
+
+new Csv2Table({
+    containerId: 'table4',
+    csvUrl: '../files/sample4.csv',
+    initialSearch: 'available:>=2023 AND available:<2026',
+    responsive: true,
+    columns: [
+        { type: 'string' },  // Product
+        { type: 'date',  toString:'YYYY/MM/DD', locale:'ja-JP'  },  // Available
+        { type: 'number' }  // Price
+    ],
+    onRenderComplete: function (instance) {
+        const populationElements = document.querySelectorAll('#table4 td.csv2table-col-2');
+        populationElements.forEach((element) => {
+            element.textContent = fullJapaneseFormat(element.textContent);
         });
     }
 });

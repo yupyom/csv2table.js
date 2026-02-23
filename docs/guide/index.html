@@ -672,7 +672,25 @@
 <td style="text-align: left;"><code>format</code></td>
 <td style="text-align: left;"><code>string</code></td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;"><code>type</code> が <code>'date'</code> の場合にのみ有効です。CSVに記載の日付の書式（例: <code>YYYY年M月D日</code>）を指定することで、カスタムフォーマットでのパース処理が行われます。</td>
+<td style="text-align: left;"><code>type</code> が <code>'date'</code> の場合に入力日付の書式を解釈するために使用します。使用可能な指定子は次の通りです。<br><code>YYYY</code>: 4桁の年<br><code>YY</code>: 2桁の年<br><code>MM</code>: 2桁の月<br><code>M</code>: 1〜2桁の月<br><code>Mmm</code>: 短い月名（Jan, Feb等）<br><code>DD</code>: 2桁の日<br><code>D</code>: 1〜2桁の日<br><code>HH</code>: 2桁の時<br><code>H</code>: 1〜2桁の時<br><code>mm</code>: 2桁の分<br><code>m</code>: 1〜2桁の分<br><code>ss</code>: 2桁の秒<br><code>s</code>: 1〜2桁の秒<br><code>Z</code>: タイムゾーン (Z, +09:00, -0800 等)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>toString</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">画面上の「表示形式」のみを指定したフォーマットに変換します。ソートや内部データは元の値（数値や日付）として保持されます。<br><strong><code>type: 'number'</code> の場合</strong>：<br><code>D[桁数]</code> (10進ゼロ埋め), <code>G[桁数]</code> (一般), <code>N[桁数]</code> (数値カンマ区切り), <code>C[桁数]</code> (通貨), <code>P[桁数]</code> (パーセント) が指定可能です。例: <code>N0</code> (1,234), <code>C</code> (￥1,234), <code>P1</code> (12.3%)<br><strong><code>type: 'date'</code> の場合</strong>：<br><code>format</code> と同じ <code>YYYY</code>, <code>MM</code>, <code>DD</code> 等の指定子のほか、<code>Www</code> (短い曜日名) が使用可能です。例: <code>YYYY年M月D日(Www)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>locale</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">言語設定依存</td>
+<td style="text-align: left;"><code>toString</code> が設定されている場合、通貨記号や月名・曜日名のロケールを指定できます。(例: <code>'ja-JP'</code>, <code>'en-US'</code> 等)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>unit</code></td>
+<td style="text-align: left;"><code>string</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><code>type</code> が <code>'number'</code> の場合、表示される数値の末尾に付与する任意の単位文字列（例: <code>'歳'</code>, <code>'kg'</code> 等）を指定します。表示のみに影響し、ソートや検索の数値には影響しません。</td>
 </tr>
 </tbody>
 </table>
@@ -767,8 +785,9 @@
 <li><code>^http</code> ... 「http」から始まる文字列に前方一致。</li>
 </ul>
 </li>
-<li><strong>大小絞り込み</strong>: <code>列名:(&lt;|&lt;=|&gt;=|&gt;)値</code>（number型の列のみ）<ul>
-<li>例: <code>Age:&gt;15 AND Age:&lt;17</code> （15 &lt; Age &lt; 17の条件を満たす行)</li>
+<li><strong>大小絞り込み</strong>: <code>列名:(&lt;|&lt;=|&gt;=|&gt;)値</code>（numberまたはdate型の列のみ）<ul>
+<li>例: <code>Age:&gt;15 AND Age:&lt;=17</code> （15 &lt; Age &lt;= 17の条件を満たす行）</li>
+<li>例: <code>Date:&gt;=2023-04-01 AND Date:&lt;=2025-03-31</code> （2023年4月1日〜2025年3月31日の行）</li>
 </ul>
 </li>
 </ul>
